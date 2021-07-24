@@ -39,9 +39,9 @@ services:
       - "/opt/awx/tower/credentials.py:/etc/tower/conf.d/credentials.py"
       - "/opt/awx/tower/projects:/var/lib/awx/projects:rw"
     environment:
-      http_proxy: "http://192.168.56.180"
+      http_proxy:
       https_proxy:
-      no_proxy: "http://192.168.56.180"
+      no_proxy:
 
   rabbitmq:
     image: ansible/awx_rabbitmq:3.7.4
