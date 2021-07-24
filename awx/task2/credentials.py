@@ -5,7 +5,7 @@ DATABASES = {
         'NAME': "awx",
         'USER': "awx",
         'PASSWORD': "awxpass",
-        'HOST': "192.168.56.170",
+        'HOST': "192.168.56.180",
         'PORT': "5432",
     }
 }
@@ -13,7 +13,7 @@ DATABASES = {
 BROKER_URL = 'amqp://{}:{}@{}:{}/{}'.format(
     "guest",
     "awxpass",
-    "192.168.56.170",
+    "192.168.56.180",
     "5672",
     "awx")
 

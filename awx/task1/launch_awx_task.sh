@@ -8,8 +8,8 @@ fi
 source /etc/tower/conf.d/environment.sh
 
 ANSIBLE_REMOTE_TEMP=/tmp ANSIBLE_LOCAL_TEMP=/tmp ansible -i "127.0.0.1," -c local -v -m wait_for -a "host=$DATABASE_HOST port=$DATABASE_PORT" all
-ANSIBLE_REMOTE_TEMP=/tmp ANSIBLE_LOCAL_TEMP=/tmp ansible -i "127.0.0.1," -c local -v -m wait_for -a "host=$MEMCACHED_HOST port=11211" all
-ANSIBLE_REMOTE_TEMP=/tmp ANSIBLE_LOCAL_TEMP=/tmp ansible -i "127.0.0.1," -c local -v -m wait_for -a "host=$RABBITMQ_HOST port=5672" all
+ANSIBLE_REMOTE_TEMP=/tmp ANSIBLE_LOCAL_TEMP=/tmp ansible -i "127.0.0.1," -c local -v -m wait_for -a "host=$MEMCACHED_HOST port=$MEMCACHED_PORT" all
+ANSIBLE_REMOTE_TEMP=/tmp ANSIBLE_LOCAL_TEMP=/tmp ansible -i "127.0.0.1," -c local -v -m wait_for -a "host=$RABBITMQ_HOST port=$RABBITMQ_PORT" all
 ANSIBLE_REMOTE_TEMP=/tmp ANSIBLE_LOCAL_TEMP=/tmp ansible -i "127.0.0.1," -c local -v -m postgresql_db --become-user $DATABASE_USER -a "name=$DATABASE_NAME owner=$DATABASE_USER login_user=$DATABASE_USER login_host=$DATABASE_HOST login_password=$DATABASE_PASSWORD port=$DATABASE_PORT" all
 
 if [ -z "$AWX_SKIP_MIGRATIONS" ]; then
@@ -21,8 +21,8 @@ if [ ! -z "$AWX_ADMIN_USER" ]&&[ ! -z "$AWX_ADMIN_PASSWORD" ]; then
     awx-manage create_preload_data
 fi
 echo 'from django.conf import settings; x = settings.AWX_TASK_ENV; x["HOME"] = "/var/lib/awx"; settings.AWX_TASK_ENV = x' | awx-manage shell
-awx-manage provision_instance --hostname=$(hostname)
-awx-manage register_queue --queuename=awx2 --instance_percent=100 --hostnames=$(hostname)
+awx-manage provision_instance --hostname=192.168.56.181
+awx-manage register_queue --queuename=web --instance_percent=0 --hostnames=192.168.56.181
 
 unset $(cut -d = -f -1 /etc/tower/conf.d/environment.sh)
 

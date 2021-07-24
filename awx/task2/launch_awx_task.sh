@@ -21,8 +21,8 @@ if [ ! -z "$AWX_ADMIN_USER" ]&&[ ! -z "$AWX_ADMIN_PASSWORD" ]; then
     awx-manage create_preload_data
 fi
 echo 'from django.conf import settings; x = settings.AWX_TASK_ENV; x["HOME"] = "/var/lib/awx"; settings.AWX_TASK_ENV = x' | awx-manage shell
-awx-manage provision_instance --hostname=$(hostname)
-awx-manage register_queue --queuename=tower --instance_percent=100
+awx-manage provision_instance --hostname=192.168.56.182
+awx-manage register_queue --queuename=api --instance_percent=0 --hostname=192.168.56.182
 
 unset $(cut -d = -f -1 /etc/tower/conf.d/environment.sh)
 

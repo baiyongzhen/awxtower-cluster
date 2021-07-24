@@ -20,14 +20,14 @@ SECRET_KEY = get_secret()
 
 ALLOWED_HOSTS = ['*']
 
-INTERNAL_API_URL = 'http://192.168.56.170'
+INTERNAL_API_URL = 'http://192.168.56.180'
 
 # Container environments don't like chroots
 AWX_PROOT_ENABLED = False
 
 
-CLUSTER_HOST_ID = "awx2"
-SYSTEM_UUID = '28ded6c3-0c3b-4cf7-b5d8-9aad4d63d175'
+CLUSTER_HOST_ID = "192.168.56.182"
+SYSTEM_UUID = 'd8d36945-e86d-4a1b-b241-d055f1200581'
 
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
@@ -64,7 +64,6 @@ LOGGING['loggers']['system_tracking_migrations']['handlers'] = ['console']
 LOGGING['loggers']['rbac_migrations']['handlers'] = ['console']
 LOGGING['loggers']['awx.isolated.manager.playbooks']['handlers'] = ['console']
 LOGGING['handlers']['callback_receiver'] = {'class': 'logging.NullHandler'}
-LOGGING['handlers']['fact_receiver'] = {'class': 'logging.NullHandler'}
 LOGGING['handlers']['task_system'] = {'class': 'logging.NullHandler'}
 LOGGING['handlers']['tower_warnings'] = {'class': 'logging.NullHandler'}
 LOGGING['handlers']['rbac_migrations'] = {'class': 'logging.NullHandler'}
@@ -97,18 +96,6 @@ CHANNEL_LAYERS = {
     'default': {'BACKEND': 'asgi_amqp.AMQPChannelLayer',
                 'ROUTING': 'awx.main.routing.channel_routing',
                 'CONFIG': {'url': BROKER_URL}}
-}
-
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '{}:{}'.format(os.getenv("MEMCACHED_HOST", None),
-                                   os.getenv("MEMCACHED_PORT", "11211"))
-    },
-    'ephemeral': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-    },
 }
 
 USE_X_FORWARDED_PORT = True
