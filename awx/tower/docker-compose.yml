@@ -17,6 +17,8 @@ services:
       - "/opt/awx/tower/SECRET_KEY:/etc/tower/SECRET_KEY"
       - "/opt/awx/tower/environment.sh:/etc/tower/conf.d/environment.sh"
       - "/opt/awx/tower/credentials.py:/etc/tower/conf.d/credentials.py"
+      - "/opt/awx/tower/settings.py:/etc/tower/settings.py"
+      - "/opt/awx/tower/projects:/var/lib/awx/projects:rw"
     environment:
       http_proxy:
       https_proxy:

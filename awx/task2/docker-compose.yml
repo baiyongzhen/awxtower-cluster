@@ -15,9 +15,9 @@ services:
       - "/opt/awx/task/credentials.py:/etc/tower/conf.d/credentials.py"
       - "/opt/awx/task/projects:/var/lib/awx/projects:rw"
     environment:
-      http_proxy: "http://192.168.56.180"
+      http_proxy:
       https_proxy:
-      no_proxy: "192.168.56.180"
+      no_proxy:
 
   memcached:
     image: memcached:alpine
