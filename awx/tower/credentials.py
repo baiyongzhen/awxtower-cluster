@@ -26,7 +26,7 @@ CHANNEL_LAYERS = {
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '{}:{}'.format("192.168.56.180", "11211")
+        'LOCATION': '{}:{}'.format("memcached", "11211")
     },
     'ephemeral': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
